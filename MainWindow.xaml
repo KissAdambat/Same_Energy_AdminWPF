@@ -7,13 +7,16 @@
         mc:Ignorable="d"
         Title="Same Energy Admin Panel" Height="450" Width="800">
     <Grid>
-        <Button x:Name="longinbtnvisb" Content="Bejelentkezés" HorizontalAlignment="Center" VerticalAlignment="Top" Height="62" Width="188" FontSize="24" FontFamily="Arial Rounded MT Bold" Margin="0,346,0,0"/>
-        <Label Content="Név:" HorizontalAlignment="Center" Margin="0,61,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
-        <TextBox x:Name="nametext" HorizontalAlignment="Center" Margin="0,114,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
-        <Label Content="Email:" HorizontalAlignment="Center" Margin="0,149,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
-        <TextBox x:Name="emailtxt" HorizontalAlignment="Center" Margin="0,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
-        <Label Content="Jelszó:" HorizontalAlignment="Center" Margin="0,241,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
-        <PasswordBox x:Name="password" HorizontalAlignment="Center" Margin="0,294,0,0" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
+        <!-- Login area shown initially -->
+        <Grid x:Name="LoginGrid">
+            <Button x:Name="longinbtnvisb" Content="Bejelentkezés" HorizontalAlignment="Center" VerticalAlignment="Top" Height="62" Width="188" FontSize="24" FontFamily="Arial Rounded MT Bold" Margin="0,346,0,0" Click="longinbtnvisb_Click"/>
+            <Label Content="Email:" HorizontalAlignment="Center" Margin="0,149,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
+            <TextBox x:Name="emailtxt" HorizontalAlignment="Center" Margin="0,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
+            <Label Content="Jelszó:" HorizontalAlignment="Center" Margin="0,241,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
+            <PasswordBox x:Name="password" HorizontalAlignment="Center" Margin="0,294,0,0" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
+        </Grid>
+
+        <Frame x:Name="MainFrame" Visibility="Collapsed" NavigationUIVisibility="Hidden" />
 
     </Grid>
 </Window>
