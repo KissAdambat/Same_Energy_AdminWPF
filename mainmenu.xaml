@@ -10,11 +10,30 @@
 
     <Grid>
         <DataGrid x:Name="maindg" d:ItemsSource="{d:SampleData ItemCount=6}" Margin="0,39,400,10"/>
-        <Button Content="Button" HorizontalAlignment="Left" Margin="750,10,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="productsbtn" Content="Products" HorizontalAlignment="Left" Margin="0,14,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="exitbtn" Content="Quit " HorizontalAlignment="Left" Margin="750,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="productsbtn" Content="Products" HorizontalAlignment="Left" Margin="0,14,0,0" VerticalAlignment="Top" Click="productsbtn_Click"/>
         <Button x:Name="Oders" Content="Orders" HorizontalAlignment="Left" Margin="55,14,0,0" VerticalAlignment="Top"/>
         <Button x:Name="oderderd_item" Content="Ordered Items" HorizontalAlignment="Left" Margin="100,14,0,0" VerticalAlignment="Top"/>
         <Button x:Name="userbtn" Content="Users" HorizontalAlignment="Left" Margin="185,14,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="newprod" Content="New product" HorizontalAlignment="Left" Margin="405,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="newprod_Click"/>
+        <Button x:Name="delprod" Content="Delete product" HorizontalAlignment="Left" Margin="576,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="delprod_Click"/>
+        <Button x:Name="updtprod" Content="Update product" HorizontalAlignment="Left" Margin="483,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="updtprod_Click"/>
+        <Label x:Name="newnameprod" Content="Name:&#xD;&#xA;" HorizontalAlignment="Left" Margin="405,129,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <Label x:Name="newproddesc" Content="Description:" HorizontalAlignment="Left" Margin="405,303,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <Label x:Name="newprodprice" Content="Price:&#xA;" HorizontalAlignment="Left" Margin="406,155,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <Label x:Name="newprodsize" Content="Size:&#xA;" HorizontalAlignment="Left" Margin="405,184,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <Label x:Name="newprodstock" Content="Stock:" HorizontalAlignment="Left" Margin="405,219,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <Label x:Name="newprodcategory" Content="Category:&#xA;" HorizontalAlignment="Left" Margin="405,246,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <Label x:Name="newprodimage" Content="Image:&#xA;" HorizontalAlignment="Left" Margin="406,274,0,0" VerticalAlignment="Top" Height="24" Visibility="Hidden"/>
+        <TextBox x:Name="newprodnametext" HorizontalAlignment="Left" Margin="483,132,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <TextBox x:Name="newproddesctext" HorizontalAlignment="Left" Margin="483,309,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <TextBox x:Name="newprodpricetext" HorizontalAlignment="Left" Margin="483,161,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <TextBox x:Name="newprodsizetext" HorizontalAlignment="Left" Margin="483,190,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <TextBox x:Name="newprodstocktext" HorizontalAlignment="Left" Margin="483,219,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <TextBox x:Name="newprodcategorytext" HorizontalAlignment="Left" Margin="483,248,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <TextBox x:Name="newprodimagetext" HorizontalAlignment="Left" Margin="483,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <Button x:Name="addprodbbtn" Content="Add" HorizontalAlignment="Left" Margin="523,348,0,0" VerticalAlignment="Top" Click="addprodbbtn_Click" Visibility="Hidden"/>
+        <Button x:Name="updateprod" Content="Update" HorizontalAlignment="Left" Margin="523,248,0,0" VerticalAlignment="Top" Click="updateprod_Click" Visibility="Hidden"/>
 
     </Grid>
 </Page>

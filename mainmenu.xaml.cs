@@ -10,6 +10,8 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
 using System.Windows.Shapes;
+using MySqlConnector;
+using Same_Energy_AdminWPF.Models;
 
 namespace Same_Energy_AdminWPF
 {
@@ -18,6 +20,7 @@ namespace Same_Energy_AdminWPF
     /// </summary>
     public partial class mainmenu : Page
     {
+        internal static Connect Conn = new Connect();
         public mainmenu()
         {
             InitializeComponent();
@@ -31,6 +34,275 @@ namespace Same_Energy_AdminWPF
             {
                 userbtn.Visibility = Visibility.Hidden;
             }
+        }
+
+        private void productsbtn_Click(object sender, RoutedEventArgs e)
+        {
+            List<ProductsM> products = new List<ProductsM>();
+            Conn.Connection.Open();
+            var sql = "SELECT * FROM `products` WHERE 1";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                var product = new ProductsM
+                {
+                    id = dr.GetInt32("id"),
+                    name = dr.GetString("name"),
+                    description = dr.GetString("description"),
+                    price = dr.GetDecimal("price"),
+                    size = dr.GetString("size"),
+                    stock = dr.GetInt32("stock"),
+                    image = dr.GetString("image"),
+                    category = dr.GetString("category")
+                };
+                products.Add(product);
+            }
+            Conn.Connection.Close();
+            maindg.ItemsSource = products;
+            newprod.Visibility = Visibility.Visible;
+            delprod.Visibility = Visibility.Visible;
+            updtprod.Visibility = Visibility.Visible;
+        }
+
+        private void newprod_Click(object sender, RoutedEventArgs e)
+        {
+            if (updateprod.Visibility == Visibility.Visible)
+            {
+                newnameprod.Visibility = Visibility.Hidden;
+                newnameprod.Content = "Name:";
+                newprodstock.Visibility = Visibility.Hidden;
+                newprodstock.Content = "Stock:";
+                newprodprice.Visibility = Visibility.Hidden;
+                newprodprice.Content = "Price:";
+                newprodsize.Visibility = Visibility.Hidden;
+                newprodsize.Content = "Size:";
+                newprodnametext.Visibility = Visibility.Hidden;
+                newprodstocktext.Visibility = Visibility.Hidden;
+                newprodpricetext.Visibility = Visibility.Hidden;
+                newprodsizetext.Visibility = Visibility.Hidden;
+                updateprod.Visibility = Visibility.Hidden;
+                newnameprod.Visibility = Visibility.Visible;
+                newproddesc.Visibility = Visibility.Visible;
+                newprodprice.Visibility = Visibility.Visible;
+                newprodsize.Visibility = Visibility.Visible;
+                newprodstock.Visibility = Visibility.Visible;
+                newprodcategory.Visibility = Visibility.Visible;
+                newprodimage.Visibility = Visibility.Visible;
+                newprodnametext.Visibility = Visibility.Visible;
+                newproddesctext.Visibility = Visibility.Visible;
+                newprodpricetext.Visibility = Visibility.Visible;
+                newprodsizetext.Visibility = Visibility.Visible;
+                newprodstocktext.Visibility = Visibility.Visible;
+                newprodcategorytext.Visibility = Visibility.Visible;
+                newprodimagetext.Visibility = Visibility.Visible;
+                addprodbbtn.Visibility = Visibility.Visible;
+            }
+            else
+            {
+                newnameprod.Visibility = Visibility.Visible;
+                newproddesc.Visibility = Visibility.Visible;
+                newprodprice.Visibility = Visibility.Visible;
+                newprodsize.Visibility = Visibility.Visible;
+                newprodstock.Visibility = Visibility.Visible;
+                newprodcategory.Visibility = Visibility.Visible;
+                newprodimage.Visibility = Visibility.Visible;
+                newprodnametext.Visibility = Visibility.Visible;
+                newproddesctext.Visibility = Visibility.Visible;
+                newprodpricetext.Visibility = Visibility.Visible;
+                newprodsizetext.Visibility = Visibility.Visible;
+                newprodstocktext.Visibility = Visibility.Visible;
+                newprodcategorytext.Visibility = Visibility.Visible;
+                newprodimagetext.Visibility = Visibility.Visible;
+                addprodbbtn.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void addprodbbtn_Click(object sender, RoutedEventArgs e)
+        {
+            string name = newprodnametext.Text;
+            string description = newproddesctext.Text;
+            decimal price = decimal.Parse(newprodpricetext.Text);
+            string size = newprodsizetext.Text;
+            int stock = int.Parse(newprodstocktext.Text);
+            string category = newprodcategorytext.Text;
+            string image = newprodimagetext.Text;
+            if (string.IsNullOrEmpty(name) || string.IsNullOrEmpty(description) || string.IsNullOrEmpty(size) || string.IsNullOrEmpty(category) || string.IsNullOrEmpty(image))
+            {
+                MessageBox.Show("Kérem töltse ki az összes mezőt!");
+            }
+            else if (price <= 0 || stock < 0)
+            {
+                MessageBox.Show("Az árnak nagyobbnak kell lennie 0-nál, a készletnek pedig nem lehet negatív!");
+            }
+            else if (category != "Cipők" && category != "Zoknik" && category != "Farmerok" && category != "Melegítők" && category != "Rövidnadrágok" && category != "Pólók"&& category != "Pulóverek" && category != "Kabátok" && category != "Kiegészítők" && category != "Parfümök")
+            {
+                MessageBox.Show("A kategória csak 'Cipők', 'Zoknik', 'Farmerok', 'Melegítők', 'Rövidnadrágok', 'Pólók', 'Pulóverek', 'Kabátok', 'Kiegészítők' vagy 'Parfümök' lehet!");
+            }
+            else if (MessageBox.Show("Biztosan hozzá akarja adni a terméket?", "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Conn.Connection.Open();
+                var sql = "INSERT INTO `products` (`name`, `description`, `price`, `size`, `stock`, `image`, `category`) VALUES (@name, @description, @price, @size, @stock, @image, @category)";
+                var cmd = new MySqlCommand(sql, Conn.Connection);
+                cmd.Parameters.AddWithValue("@name", name);
+                cmd.Parameters.AddWithValue("@description", description);
+                cmd.Parameters.AddWithValue("@price", price);
+                cmd.Parameters.AddWithValue("@size", size);
+                cmd.Parameters.AddWithValue("@stock", stock);
+                cmd.Parameters.AddWithValue("@image", image);
+                cmd.Parameters.AddWithValue("@category", category);
+                cmd.ExecuteNonQuery();
+                Conn.Connection.Close();
+                MessageBox.Show("A termék sikeresen hozzáadva!");
+                newnameprod.Visibility = Visibility.Hidden;
+                newproddesc.Visibility = Visibility.Hidden;
+                newprodprice.Visibility = Visibility.Hidden;
+                newprodsize.Visibility = Visibility.Hidden;
+                newprodstock.Visibility = Visibility.Hidden;
+                newprodcategory.Visibility = Visibility.Hidden;
+                newprodimage.Visibility = Visibility.Hidden;
+                newprodnametext.Visibility = Visibility.Hidden;
+                newproddesctext.Visibility = Visibility.Hidden;
+                newprodpricetext.Visibility = Visibility.Hidden;
+                newprodsizetext.Visibility = Visibility.Hidden;
+                newprodstocktext.Visibility = Visibility.Hidden;
+                newprodcategorytext.Visibility = Visibility.Hidden;
+                newprodimagetext.Visibility = Visibility.Hidden;
+                addprodbbtn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show("A termék hozzáadása megszakítva!");
+            }
+        }
+
+        private void updtprod_Click(object sender, RoutedEventArgs e)
+        {
+            if (addprodbbtn.Visibility == Visibility.Visible)
+            {
+                newnameprod.Visibility = Visibility.Hidden;
+                newproddesc.Visibility = Visibility.Hidden;
+                newprodprice.Visibility = Visibility.Hidden;
+                newprodsize.Visibility = Visibility.Hidden;
+                newprodstock.Visibility = Visibility.Hidden;
+                newprodcategory.Visibility = Visibility.Hidden;
+                newprodimage.Visibility = Visibility.Hidden;
+                newprodnametext.Visibility = Visibility.Hidden;
+                newproddesctext.Visibility = Visibility.Hidden;
+                newprodpricetext.Visibility = Visibility.Hidden;
+                newprodsizetext.Visibility = Visibility.Hidden;
+                newprodstocktext.Visibility = Visibility.Hidden;
+                newprodcategorytext.Visibility = Visibility.Hidden;
+                newprodimagetext.Visibility = Visibility.Hidden;
+                addprodbbtn.Visibility = Visibility.Hidden;
+                newnameprod.Content = "Price:";
+                newnameprod.Visibility = Visibility.Visible;
+                newprodnametext.Visibility = Visibility.Visible;
+                newprodprice.Content = "Size:";
+                newprodprice.Visibility = Visibility.Visible;
+                newprodpricetext.Visibility = Visibility.Visible;
+                newprodsize.Content = "Stock:";
+                newprodsize.Visibility = Visibility.Visible;
+                newprodsizetext.Visibility = Visibility.Visible;
+                updateprod.Visibility = Visibility.Visible;
+                newprodstock.Content = "Category:";
+                newprodstock.Visibility = Visibility.Visible;
+                newprodstocktext.Visibility = Visibility.Visible;
+
+            }
+            else
+            {
+                newnameprod.Content = "Price:";
+                newnameprod.Visibility = Visibility.Visible;
+                newprodnametext.Visibility = Visibility.Visible;
+                newprodprice.Content = "Size:";
+                newprodprice.Visibility = Visibility.Visible;
+                newprodpricetext.Visibility = Visibility.Visible;
+                newprodsize.Content = "Stock:";
+                newprodsize.Visibility = Visibility.Visible;
+                newprodsizetext.Visibility = Visibility.Visible;
+                updateprod.Visibility = Visibility.Visible;
+                newprodstock.Content = "Category:";
+                newprodstock.Visibility = Visibility.Visible;
+                newprodstocktext.Visibility = Visibility.Visible;
+            }
+        }
+
+        private void updateprod_Click(object sender, RoutedEventArgs e)
+        {
+            string price = newprodnametext.Text;
+            string size = newprodpricetext.Text;
+            string stock = newprodsizetext.Text;
+            string category = newprodstocktext.Text;
+            if (string.IsNullOrEmpty(price) || string.IsNullOrEmpty(size) || string.IsNullOrEmpty(stock) || string.IsNullOrEmpty(category))
+            {
+                MessageBox.Show("Kérem töltse ki az összes mezőt!");
+            }
+            else if (price == "0" || stock == "0")
+            {
+                MessageBox.Show("Az árnak és a készletnek nagyobbnak kell lennie 0-nál!");
+            }
+            else if (category != "Cipők" && category != "Zoknik" && category != "Farmerok" && category != "Melegítők" && category != "Rövidnadrágok" && category != "Pólók" && category != "Pulóverek" && category != "Kabátok" && category != "Kiegészítők" && category != "Parfümök")
+            {
+                MessageBox.Show("A kategória csak 'Cipők', 'Zoknik', 'Farmerok', 'Melegítők', 'Rövidnadrágok', 'Pólók', 'Pulóverek', 'Kabátok', 'Kiegészítők' vagy 'Parfümök' lehet!");
+            }
+            else if (maindg.SelectedItem == null)
+            {
+                MessageBox.Show("Kérem válasszon ki egy terméket a frissítéshez!");
+            }
+            else if (MessageBox.Show("Biztosan frissíteni akarja a terméket?", "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Conn.Connection.Open();
+                var sql = "UPDATE `products` SET `price` = @price, `size` = @size, `stock` = @stock, `category` = @category WHERE `id` = @id";
+                var cmd = new MySqlCommand(sql, Conn.Connection);
+                cmd.Parameters.AddWithValue("@price", price);
+                cmd.Parameters.AddWithValue("@size", size);
+                cmd.Parameters.AddWithValue("@stock", stock);
+                cmd.Parameters.AddWithValue("@category", category);
+                cmd.Parameters.AddWithValue("@id", maindg.SelectedItem is ProductsM selectedProduct ? selectedProduct.id : 0);
+                cmd.ExecuteNonQuery();
+                Conn.Connection.Close();
+                MessageBox.Show("A termék sikeresen frissítve!");
+                newnameprod.Visibility = Visibility.Hidden;
+                newnameprod.Content = "Name:";
+                newprodprice.Visibility = Visibility.Hidden;
+                newprodprice.Content = "Price:";
+                newprodsize.Visibility = Visibility.Hidden;
+                newprodsize.Content = "Size:";
+                newprodstock.Visibility = Visibility.Hidden;
+                newprodstock.Content = "Stock:";
+                newprodnametext.Visibility = Visibility.Hidden;
+                newprodpricetext.Visibility = Visibility.Hidden;
+                newprodsizetext.Visibility = Visibility.Hidden;
+                newprodstocktext.Visibility = Visibility.Hidden;
+                updateprod.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show("A termék frissítése megszakítva!");
+            }
+        }
+
+        private void delprod_Click(object sender, RoutedEventArgs e)
+        {
+            if (maindg.SelectedItem == null)
+            {
+                MessageBox.Show("Kérem válasszon ki egy terméket a törléshez!");
+            }
+            else if (MessageBox.Show("Biztosan törölni akarja a terméket?", "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Conn.Connection.Open();
+                var sql = "DELETE FROM `products` WHERE `id` = @id";
+                var cmd = new MySqlCommand(sql, Conn.Connection);
+                cmd.Parameters.AddWithValue("@id", maindg.SelectedItem is ProductsM selectedProduct ? selectedProduct.id : 0);
+                cmd.ExecuteNonQuery();
+                Conn.Connection.Close();
+                MessageBox.Show("A termék sikeresen törölve!");
+            }
+            else
+            {
+                MessageBox.Show("A termék törlése megszakítva!");
+            }   
         }
     }
 }
