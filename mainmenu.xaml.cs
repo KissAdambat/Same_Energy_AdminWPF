@@ -423,6 +423,7 @@ namespace Same_Energy_AdminWPF
             statusupdttxt.Visibility = Visibility.Hidden;
             updtstatusbttn.Visibility = Visibility.Hidden;
             updorders.Visibility = Visibility.Hidden;
+            maindg.ItemsSource = null;
             List<OrderedItemsM> orders = new List<OrderedItemsM>();
             Conn.Connection.Open();
             var sql = "SELECT * FROM `order_items` WHERE 1";
@@ -470,6 +471,28 @@ namespace Same_Energy_AdminWPF
             statusupdttxt.Visibility = Visibility.Hidden;
             updtstatusbttn.Visibility = Visibility.Hidden;
             updorders.Visibility = Visibility.Hidden; 
+            maindg.ItemsSource = null;
+            List<UsersM> orders = new List<UsersM>();
+            Conn.Connection.Open();
+            var sql = "SELECT * FROM `users` WHERE 1";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                var order = new UsersM
+                {
+                    id = dr.GetInt32(dr.GetOrdinal("id")),
+                    name = dr.IsDBNull(dr.GetOrdinal("name")) ? null : dr.GetString(dr.GetOrdinal("name")),
+                    email = dr.IsDBNull(dr.GetOrdinal("email")) ? null : dr.GetString(dr.GetOrdinal("email")),
+                    password = dr.IsDBNull(dr.GetOrdinal("password")) ? null : dr.GetString(dr.GetOrdinal("password")),
+                    phone = dr.IsDBNull(dr.GetOrdinal("phone")) ? null : dr.GetString(dr.GetOrdinal("phone")),
+                    address = dr.IsDBNull(dr.GetOrdinal("address")) ? null : dr.GetString(dr.GetOrdinal("address")),
+                    role = dr.IsDBNull(dr.GetOrdinal("role")) ? null : dr.GetString(dr.GetOrdinal("role"))
+                };
+                orders.Add(order);
+            };
+            Conn.Connection.Close();
+            maindg.ItemsSource = orders;
         }
     }
 }
