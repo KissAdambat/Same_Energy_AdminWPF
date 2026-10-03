@@ -401,7 +401,75 @@ namespace Same_Energy_AdminWPF
 
         private void oderderd_item_Click(object sender, RoutedEventArgs e)
         {
+            newnameprod.Visibility = Visibility.Hidden;
+            newproddesc.Visibility = Visibility.Hidden;
+            newprodprice.Visibility = Visibility.Hidden;
+            newprodsize.Visibility = Visibility.Hidden;
+            newprodstock.Visibility = Visibility.Hidden;
+            newprodcategory.Visibility = Visibility.Hidden;
+            newprodimage.Visibility = Visibility.Hidden;
+            newprodnametext.Visibility = Visibility.Hidden;
+            newproddesctext.Visibility = Visibility.Hidden;
+            newprodpricetext.Visibility = Visibility.Hidden;
+            newprodsizetext.Visibility = Visibility.Hidden;
+            newprodstocktext.Visibility = Visibility.Hidden;
+            newprodcategorytext.Visibility = Visibility.Hidden;
+            newprodimagetext.Visibility = Visibility.Hidden;
+            updateprod.Visibility = Visibility.Hidden;
+            newprod.Visibility = Visibility.Hidden;
+            delprod.Visibility = Visibility.Hidden;
+            updtprod.Visibility = Visibility.Hidden;
+            statuspd.Visibility = Visibility.Hidden;
+            statusupdttxt.Visibility = Visibility.Hidden;
+            updtstatusbttn.Visibility = Visibility.Hidden;
+            updorders.Visibility = Visibility.Hidden;
+            List<OrderedItemsM> orders = new List<OrderedItemsM>();
+            Conn.Connection.Open();
+            var sql = "SELECT * FROM `order_items` WHERE 1";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                var order = new OrderedItemsM  
+                {
+                    id = dr.GetInt32("id"),
+                    order_id = dr.GetInt32("order_id"),
+                    product_id = dr.GetInt32("product_id"),
+                    product_name = dr.GetString("product_name"),
+                    size = dr.GetString("size"),
+                    quantity = dr.GetInt32("quantity"),
+                    unit_price = dr.GetDecimal("unit_price")
+                };
+                orders.Add(order);
+            }
+            Conn.Connection.Close();
+            maindg.ItemsSource = orders;
+        }
 
+        private void userbtn_Click(object sender, RoutedEventArgs e)
+        {
+            newnameprod.Visibility = Visibility.Hidden;
+            newproddesc.Visibility = Visibility.Hidden;
+            newprodprice.Visibility = Visibility.Hidden;
+            newprodsize.Visibility = Visibility.Hidden;
+            newprodstock.Visibility = Visibility.Hidden;
+            newprodcategory.Visibility = Visibility.Hidden;
+            newprodimage.Visibility = Visibility.Hidden;
+            newprodnametext.Visibility = Visibility.Hidden;
+            newproddesctext.Visibility = Visibility.Hidden;
+            newprodpricetext.Visibility = Visibility.Hidden;
+            newprodsizetext.Visibility = Visibility.Hidden;
+            newprodstocktext.Visibility = Visibility.Hidden;
+            newprodcategorytext.Visibility = Visibility.Hidden;
+            newprodimagetext.Visibility = Visibility.Hidden;
+            updateprod.Visibility = Visibility.Hidden;
+            newprod.Visibility = Visibility.Hidden;
+            delprod.Visibility = Visibility.Hidden;
+            updtprod.Visibility = Visibility.Hidden;
+            statuspd.Visibility = Visibility.Hidden;
+            statusupdttxt.Visibility = Visibility.Hidden;
+            updtstatusbttn.Visibility = Visibility.Hidden;
+            updorders.Visibility = Visibility.Hidden; 
         }
     }
 }

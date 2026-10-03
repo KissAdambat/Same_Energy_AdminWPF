@@ -14,7 +14,7 @@
         <Button x:Name="productsbtn" Content="Products" HorizontalAlignment="Left" Margin="0,14,0,0" VerticalAlignment="Top" Click="productsbtn_Click"/>
         <Button x:Name="Orders" Content="Orders" HorizontalAlignment="Left" Margin="55,14,0,0" VerticalAlignment="Top" Click="Orders_Click"/>
         <Button x:Name="oderderd_item" Content="Ordered Items" HorizontalAlignment="Left" Margin="100,14,0,0" VerticalAlignment="Top" Click="oderderd_item_Click"/>
-        <Button x:Name="userbtn" Content="Users" HorizontalAlignment="Left" Margin="185,14,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="userbtn" Content="Users" HorizontalAlignment="Left" Margin="185,14,0,0" VerticalAlignment="Top" Click="userbtn_Click"/>
         <Button x:Name="newprod" Content="New product" HorizontalAlignment="Left" Margin="405,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="newprod_Click"/>
         <Button x:Name="delprod" Content="Delete product" HorizontalAlignment="Left" Margin="576,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="delprod_Click"/>
         <Button x:Name="updtprod" Content="Update product" HorizontalAlignment="Left" Margin="483,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="updtprod_Click"/>
