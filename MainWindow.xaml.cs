@@ -72,7 +72,12 @@ namespace Same_Energy_AdminWPF
                         JelszoAdatbazis = dr.GetString(3),
                         RoleAdatbazis = dr.GetString(6)
                     };
-                    if (RoleVizsg(felhasznalo.RoleAdatbazis) ==  true)
+                    if (jelszo != felhasznalo.JelszoAdatbazis)
+                    {
+                        MessageBox.Show("Wrong password");
+                        break;
+                    }
+                    else if (RoleVizsg(felhasznalo.RoleAdatbazis) ==  true)
                     {
                         MessageBox.Show($"Sikeres Bejelentkezés. Üdvözlünk {felhasznalo.NameAdatbazis}");
                         MainFrame.Visibility = Visibility.Visible;
