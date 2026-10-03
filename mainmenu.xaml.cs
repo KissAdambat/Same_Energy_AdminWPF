@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Net.Quic;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -38,6 +39,10 @@ namespace Same_Energy_AdminWPF
 
         private void productsbtn_Click(object sender, RoutedEventArgs e)
         {
+            statuspd.Visibility = Visibility.Hidden;
+            statusupdttxt.Visibility = Visibility.Hidden;
+            updtstatusbttn.Visibility = Visibility.Hidden;
+            updorders.Visibility = Visibility.Hidden;
             List<ProductsM> products = new List<ProductsM>();
             Conn.Connection.Open();
             var sql = "SELECT * FROM `products` WHERE 1";
@@ -303,6 +308,100 @@ namespace Same_Energy_AdminWPF
             {
                 MessageBox.Show("A termék törlése megszakítva!");
             }   
+        }
+
+        private void exitbtn_Click(object sender, RoutedEventArgs e)
+        {
+            if (MessageBox.Show("Biztosan ki akar lépni?", "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Application.Current.Shutdown();
+            }
+        }
+
+        private void Orders_Click(object sender, RoutedEventArgs e)
+        {
+            newnameprod.Visibility = Visibility.Hidden;
+            newproddesc.Visibility = Visibility.Hidden;
+            newprodprice.Visibility = Visibility.Hidden;
+            newprodsize.Visibility = Visibility.Hidden;
+            newprodstock.Visibility = Visibility.Hidden;
+            newprodcategory.Visibility = Visibility.Hidden;
+            newprodimage.Visibility = Visibility.Hidden;
+            newprodnametext.Visibility = Visibility.Hidden;
+            newproddesctext.Visibility = Visibility.Hidden;
+            newprodpricetext.Visibility = Visibility.Hidden;
+            newprodsizetext.Visibility = Visibility.Hidden;
+            newprodstocktext.Visibility = Visibility.Hidden;
+            newprodcategorytext.Visibility = Visibility.Hidden;
+            newprodimagetext.Visibility = Visibility.Hidden;
+            updateprod.Visibility = Visibility.Hidden;
+            newprod.Visibility = Visibility.Hidden;
+            delprod.Visibility = Visibility.Hidden;
+            updtprod.Visibility = Visibility.Hidden;
+            maindg.ItemsSource = null;
+            List<OrdersM> orders = new List<OrdersM>();
+            Conn.Connection.Open();
+            var sql = "SELECT * FROM `orders` WHERE 1";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var dr = cmd.ExecuteReader();
+            while (dr.Read())
+            {
+                var order = new OrdersM
+                {
+                    id = dr.GetInt32("id"),
+                    user_id = dr.GetInt32("user_id"),
+                    status = dr.GetString("status"),
+                    total_price = dr.GetDecimal("total_price"),
+                    order_date = dr.GetDateTime("order_date")
+                };
+                orders.Add(order);
+            }
+            Conn.Connection.Close();
+            maindg.ItemsSource = orders;
+            updorders.Visibility = Visibility.Visible;
+        }
+
+        private void updorders_Click(object sender, RoutedEventArgs e)
+        {
+            statuspd.Visibility = Visibility.Visible;
+            statusupdttxt.Visibility = Visibility.Visible;
+            updtstatusbttn.Visibility = Visibility.Visible;
+        }
+
+        private void updtstatusbttn_Click(object sender, RoutedEventArgs e)
+        {
+            string status = statusupdttxt.Text;
+            if (status != "pending" && status != "shipped" && status != "delivered" && status != "cancelled")
+            {
+                MessageBox.Show("A státusz csak 'pending', 'shipped', 'delivered' vagy 'cancelled' lehet!");
+            }
+            else if (maindg.SelectedItem == null)
+            {
+                MessageBox.Show("Kérem válasszon ki egy rendelést a frissítéshez!");
+            }
+            else if (MessageBox.Show("Biztosan frissíteni akarja a rendelés státuszát?", "Megerősítés", MessageBoxButton.YesNo, MessageBoxImage.Question) == MessageBoxResult.Yes)
+            {
+                Conn.Connection.Open();
+                var sql = "UPDATE `orders` SET `status` = @status WHERE `id` = @id";
+                var cmd = new MySqlCommand(sql, Conn.Connection);
+                cmd.Parameters.AddWithValue("@status", status);
+                cmd.Parameters.AddWithValue("@id", maindg.SelectedItem is OrdersM selectedOrder ? selectedOrder.id : 0);
+                cmd.ExecuteNonQuery();
+                Conn.Connection.Close();
+                MessageBox.Show("A rendelés státusza sikeresen frissítve!");
+                statuspd.Visibility = Visibility.Hidden;
+                statusupdttxt.Visibility = Visibility.Hidden;
+                updtstatusbttn.Visibility = Visibility.Hidden;
+            }
+            else
+            {
+                MessageBox.Show("A rendelés státuszának frissítése megszakítva!");
+            }
+        }
+
+        private void oderderd_item_Click(object sender, RoutedEventArgs e)
+        {
+
         }
     }
 }

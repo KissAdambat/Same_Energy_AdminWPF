@@ -10,10 +10,10 @@
 
     <Grid>
         <DataGrid x:Name="maindg" d:ItemsSource="{d:SampleData ItemCount=6}" Margin="0,39,400,10"/>
-        <Button x:Name="exitbtn" Content="Quit " HorizontalAlignment="Left" Margin="750,10,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="exitbtn" Content="Quit " HorizontalAlignment="Left" Margin="750,10,0,0" VerticalAlignment="Top" Click="exitbtn_Click"/>
         <Button x:Name="productsbtn" Content="Products" HorizontalAlignment="Left" Margin="0,14,0,0" VerticalAlignment="Top" Click="productsbtn_Click"/>
-        <Button x:Name="Oders" Content="Orders" HorizontalAlignment="Left" Margin="55,14,0,0" VerticalAlignment="Top"/>
-        <Button x:Name="oderderd_item" Content="Ordered Items" HorizontalAlignment="Left" Margin="100,14,0,0" VerticalAlignment="Top"/>
+        <Button x:Name="Orders" Content="Orders" HorizontalAlignment="Left" Margin="55,14,0,0" VerticalAlignment="Top" Click="Orders_Click"/>
+        <Button x:Name="oderderd_item" Content="Ordered Items" HorizontalAlignment="Left" Margin="100,14,0,0" VerticalAlignment="Top" Click="oderderd_item_Click"/>
         <Button x:Name="userbtn" Content="Users" HorizontalAlignment="Left" Margin="185,14,0,0" VerticalAlignment="Top"/>
         <Button x:Name="newprod" Content="New product" HorizontalAlignment="Left" Margin="405,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="newprod_Click"/>
         <Button x:Name="delprod" Content="Delete product" HorizontalAlignment="Left" Margin="576,85,0,0" VerticalAlignment="Top" Visibility="Hidden" Click="delprod_Click"/>
@@ -34,6 +34,10 @@
         <TextBox x:Name="newprodimagetext" HorizontalAlignment="Left" Margin="483,277,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
         <Button x:Name="addprodbbtn" Content="Add" HorizontalAlignment="Left" Margin="523,348,0,0" VerticalAlignment="Top" Click="addprodbbtn_Click" Visibility="Hidden"/>
         <Button x:Name="updateprod" Content="Update" HorizontalAlignment="Left" Margin="523,248,0,0" VerticalAlignment="Top" Click="updateprod_Click" Visibility="Hidden"/>
+        <Button x:Name="updorders" Content="Update" HorizontalAlignment="Left" Margin="415,54,0,0" VerticalAlignment="Top" Click="updorders_Click" Visibility="Hidden"/>
+        <Label x:Name="statuspd" Content="Statusz Update:" HorizontalAlignment="Left" Margin="415,87,0,0" VerticalAlignment="Top" Visibility="Hidden"/>
+        <TextBox x:Name="statusupdttxt" HorizontalAlignment="Left" Margin="510,91,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="120" Visibility="Hidden"/>
+        <Button x:Name="updtstatusbttn" Content="Update" HorizontalAlignment="Left" Margin="487,129,0,0" VerticalAlignment="Top" Click="updtstatusbttn_Click" Visibility="Hidden"/>
 
     </Grid>
 </Page>
