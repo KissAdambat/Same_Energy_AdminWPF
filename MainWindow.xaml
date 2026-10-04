@@ -5,18 +5,409 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Same_Energy_AdminWPF"
         mc:Ignorable="d"
-        Title="Same Energy Admin Panel" Height="450" Width="800">
-    <Grid>
-        <!-- Login area shown initially -->
+        Title="Same Energy Admin Panel"
+        WindowStyle="None"
+        WindowState="Maximized"
+        ResizeMode="NoResize"
+        Topmost="False"
+        Background="#080808">
+
+    <Window.Resources>
+
+        <!-- ============================================= -->
+        <!-- SZÍNEK -->
+        <!-- ============================================= -->
+
+        <SolidColorBrush x:Key="BackgroundBrush"
+                         Color="#080808"/>
+
+        <SolidColorBrush x:Key="CardBrush"
+                         Color="#111111"/>
+
+        <SolidColorBrush x:Key="BorderBrush"
+                         Color="#252525"/>
+
+        <SolidColorBrush x:Key="AccentBrush"
+                         Color="#9C8060"/>
+
+        <SolidColorBrush x:Key="AccentDarkBrush"
+                         Color="#3C3024"/>
+
+        <!-- ============================================= -->
+        <!-- TEXTBOX -->
+        <!-- ============================================= -->
+
+        <Style x:Key="LoginTextBoxStyle"
+               TargetType="TextBox">
+
+            <Setter Property="Background"
+                    Value="#0B0B0B"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#303030"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Height"
+                    Value="46"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Padding"
+                    Value="13,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="FontFamily"
+                    Value="Segoe UI"/>
+
+        </Style>
+
+
+        <!-- ============================================= -->
+        <!-- PASSWORD BOX -->
+        <!-- ============================================= -->
+
+        <Style x:Key="LoginPasswordBoxStyle"
+               TargetType="PasswordBox">
+
+            <Setter Property="Background"
+                    Value="#0B0B0B"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#303030"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Height"
+                    Value="46"/>
+
+            <Setter Property="FontSize"
+                    Value="14"/>
+
+            <Setter Property="Padding"
+                    Value="13,0"/>
+
+            <Setter Property="VerticalContentAlignment"
+                    Value="Center"/>
+
+            <Setter Property="FontFamily"
+                    Value="Segoe UI"/>
+
+        </Style>
+
+
+        <!-- ============================================= -->
+        <!-- LOGIN BUTTON -->
+        <!-- ============================================= -->
+
+        <Style x:Key="LoginButtonStyle"
+               TargetType="Button">
+
+            <Setter Property="Background"
+                    Value="#3C3024"/>
+
+            <Setter Property="Foreground"
+                    Value="White"/>
+
+            <Setter Property="BorderBrush"
+                    Value="#9C8060"/>
+
+            <Setter Property="BorderThickness"
+                    Value="1"/>
+
+            <Setter Property="Height"
+                    Value="48"/>
+
+            <Setter Property="FontSize"
+                    Value="13"/>
+
+            <Setter Property="FontWeight"
+                    Value="SemiBold"/>
+
+            <Setter Property="FontFamily"
+                    Value="Segoe UI"/>
+
+            <Setter Property="Cursor"
+                    Value="Hand"/>
+
+            <Setter Property="Margin"
+                    Value="0,12,0,0"/>
+
+            <Style.Triggers>
+
+                <Trigger Property="IsMouseOver"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#554431"/>
+
+                    <Setter Property="BorderBrush"
+                            Value="#B69A78"/>
+
+                </Trigger>
+
+                <Trigger Property="IsPressed"
+                         Value="True">
+
+                    <Setter Property="Background"
+                            Value="#292017"/>
+
+                </Trigger>
+
+            </Style.Triggers>
+
+        </Style>
+
+    </Window.Resources>
+
+
+    <!-- ================================================= -->
+    <!-- FŐ GRID -->
+    <!-- ================================================= -->
+
+    <Grid Background="{StaticResource BackgroundBrush}">
+
+
+        <!-- ================================================= -->
+        <!-- DEKORATÍV HÁTTÉR -->
+        <!-- ================================================= -->
+
+        <Border Width="500"
+                Height="500"
+                HorizontalAlignment="Left"
+                VerticalAlignment="Top"
+                Margin="-180,-180,0,0"
+                CornerRadius="500"
+                Background="#0D0D0D"/>
+
+        <Border Width="450"
+                Height="450"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Bottom"
+                Margin="0,0,-160,-160"
+                CornerRadius="450"
+                Background="#0D0D0D"/>
+
+        <!-- Exit button (top-right) -->
+        <Button x:Name="ExitButton"
+                Content="Exit"
+                Width="80"
+                Height="30"
+                HorizontalAlignment="Right"
+                VerticalAlignment="Top"
+                Margin="0,12,12,0"
+                Background="#3C3024"
+                Foreground="White"
+                BorderBrush="#9C8060"
+                Click="ExitButton_Click"
+                ToolTip="Exit application" />
+
+
+        <!-- ================================================= -->
+        <!-- LOGIN GRID -->
+        <!-- FONTOS: x:Name="LoginGrid" MARAD -->
+        <!-- ================================================= -->
+
         <Grid x:Name="LoginGrid">
-            <Button x:Name="longinbtnvisb" Content="Bejelentkezés" HorizontalAlignment="Center" VerticalAlignment="Top" Height="62" Width="188" FontSize="24" FontFamily="Arial Rounded MT Bold" Margin="0,346,0,0" Click="longinbtnvisb_Click"/>
-            <Label Content="Email:" HorizontalAlignment="Center" Margin="0,149,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
-            <TextBox x:Name="emailtxt" HorizontalAlignment="Center" Margin="0,202,0,0" TextWrapping="Wrap" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
-            <Label Content="Jelszó:" HorizontalAlignment="Center" Margin="0,241,0,0" VerticalAlignment="Top" Height="48" Width="188" FontSize="24"/>
-            <PasswordBox x:Name="password" HorizontalAlignment="Center" Margin="0,294,0,0" VerticalAlignment="Top" Width="188" Height="30" FontSize="20"/>
+
+
+            <!-- ============================================= -->
+            <!-- KÖZÉPSŐ LOGIN KÁRTYA -->
+            <!-- ============================================= -->
+
+            <Border Width="430"
+                    Padding="45,40"
+                    HorizontalAlignment="Center"
+                    VerticalAlignment="Center"
+                    Background="{StaticResource CardBrush}"
+                    BorderBrush="{StaticResource BorderBrush}"
+                    BorderThickness="1"
+                    CornerRadius="6">
+
+                <Grid>
+
+                    <Grid.RowDefinitions>
+
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+                        <RowDefinition Height="Auto"/>
+
+                    </Grid.RowDefinitions>
+
+
+                    <!-- ================================= -->
+                    <!-- LOGÓ -->
+                    <!-- ================================= -->
+
+                    <StackPanel Grid.Row="0"
+                                HorizontalAlignment="Center"
+                                Margin="0,0,0,32">
+
+                        <TextBlock Text="SAME"
+                                   FontFamily="Georgia"
+                                   FontSize="38"
+                                   FontWeight="Bold"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="ENERGY"
+                                   FontFamily="Georgia"
+                                   FontSize="38"
+                                   FontWeight="Bold"
+                                   Foreground="{StaticResource AccentBrush}"
+                                   HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="ADMINISTRATION PANEL"
+                                   Foreground="#666666"
+                                   FontSize="9"
+                                   FontWeight="SemiBold"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,8,0,0"/>
+
+                    </StackPanel>
+
+
+                    <!-- ================================= -->
+                    <!-- ELVÁLASZTÓ -->
+                    <!-- ================================= -->
+
+                    <Border Grid.Row="1"
+                            Height="1"
+                            Background="#252525"
+                            Margin="0,0,0,28"/>
+
+
+                    <!-- ================================= -->
+                    <!-- CÍM -->
+                    <!-- ================================= -->
+
+                    <StackPanel Grid.Row="2"
+                                Margin="0,0,0,25">
+
+                        <TextBlock Text="Welcome back"
+                                   FontFamily="Georgia"
+                                   FontSize="25"
+                                   Foreground="White"
+                                   HorizontalAlignment="Center"/>
+
+                        <TextBlock Text="Sign in to your administration account"
+                                   Foreground="#666666"
+                                   FontSize="12"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,7,0,0"/>
+
+                    </StackPanel>
+
+
+                    <!-- ================================= -->
+                    <!-- EMAIL -->
+                    <!-- ================================= -->
+
+                    <StackPanel Grid.Row="3">
+
+                        <TextBlock Text="EMAIL ADDRESS"
+                                   Foreground="#888888"
+                                   FontSize="10"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,7"/>
+
+                        <TextBox x:Name="emailtxt"
+                                 Style="{StaticResource LoginTextBoxStyle}"/>
+
+                    </StackPanel>
+
+
+                    <!-- ================================= -->
+                    <!-- JELSZÓ -->
+                    <!-- ================================= -->
+
+                    <StackPanel Grid.Row="4"
+                                Margin="0,18,0,0">
+
+                        <TextBlock Text="PASSWORD"
+                                   Foreground="#888888"
+                                   FontSize="10"
+                                   FontWeight="SemiBold"
+                                   Margin="0,0,0,7"/>
+
+                        <PasswordBox x:Name="password"
+                                     Style="{StaticResource LoginPasswordBoxStyle}"/>
+
+                    </StackPanel>
+
+
+                    <!-- ================================= -->
+                    <!-- BEJELENTKEZÉS -->
+                    <!-- ================================= -->
+
+                    <StackPanel Grid.Row="5"
+                                Margin="0,15,0,0">
+
+                        <Button x:Name="longinbtnvisb"
+                                Content="SIGN IN"
+                                Style="{StaticResource LoginButtonStyle}"
+                                Click="longinbtnvisb_Click"/>
+
+                        <TextBlock Text="AUTHORIZED PERSONNEL ONLY"
+                                   Foreground="#444444"
+                                   FontSize="9"
+                                   HorizontalAlignment="Center"
+                                   Margin="0,18,0,0"/>
+
+                    </StackPanel>
+
+                </Grid>
+
+            </Border>
+
+
+            <!-- ================================================= -->
+            <!-- BAL ALSÓ INFORMÁCIÓ -->
+            <!-- ================================================= -->
+
+            <StackPanel HorizontalAlignment="Left"
+                        VerticalAlignment="Bottom"
+                        Margin="35,0,0,30">
+
+                <TextBlock Text="SAME ENERGY"
+                           Foreground="#555555"
+                           FontSize="11"
+                           FontWeight="Bold"/>
+
+                <TextBlock Text="Administration System"
+                           Foreground="#333333"
+                           FontSize="10"
+                           Margin="0,4,0,0"/>
+
+            </StackPanel>
+
+
         </Grid>
 
-        <Frame x:Name="MainFrame" Visibility="Collapsed" NavigationUIVisibility="Hidden" />
+
+        <!-- ================================================= -->
+        <!-- MAIN FRAME -->
+        <!-- FONTOS: EZ IS MARAD -->
+        <!-- ================================================= -->
+
+        <Frame x:Name="MainFrame"
+               Visibility="Collapsed"
+               NavigationUIVisibility="Hidden"/>
 
     </Grid>
+
 </Window>

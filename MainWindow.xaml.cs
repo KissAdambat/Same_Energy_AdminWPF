@@ -135,5 +135,11 @@ namespace Same_Energy_AdminWPF
             Conn.Connection.Close();
             return false;
         }
+
+        private void ExitButton_Click(object sender, RoutedEventArgs e)
+        {
+            // Close the main window which will exit the application
+            this.Close();
+        }
     }
 }

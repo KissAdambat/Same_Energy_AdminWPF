@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Net.Quic;
+using System.Security.AccessControl;
 using System.Text;
 using System.Windows;
 using System.Windows.Controls;
@@ -35,8 +36,38 @@ namespace Same_Energy_AdminWPF
             {
                 userbtn.Visibility = Visibility.Hidden;
             }
+            TotalProducts(null,null);
+            TotalOrders(null, null);
+            TotalUsers(null, null);
         }
 
+        private void TotalProducts(object sender, RoutedEventArgs e)
+        {
+            Conn.Connection.Open();
+            var sql = "SELECT COUNT(*) FROM `products`";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var count = Convert.ToInt32(cmd.ExecuteScalar());
+            Conn.Connection.Close();
+            totalproductDB.Text = count.ToString();
+        }
+        private void TotalOrders(object sender, RoutedEventArgs e)
+        {
+            Conn.Connection.Open();
+            var sql = "SELECT COUNT(*) FROM `orders`";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var count = Convert.ToInt32(cmd.ExecuteScalar());
+            Conn.Connection.Close();
+            totalordersDB.Text = count.ToString();
+        }
+        private void TotalUsers(object sender, RoutedEventArgs e)
+        {
+            Conn.Connection.Open();
+            var sql = "SELECT COUNT(*) FROM `users`";
+            var cmd = new MySqlCommand(sql, Conn.Connection);
+            var count = Convert.ToInt32(cmd.ExecuteScalar());
+            Conn.Connection.Close();
+            totalusersDB.Text = count.ToString();
+        }
         private void productsbtn_Click(object sender, RoutedEventArgs e)
         {
             statuspd.Visibility = Visibility.Hidden;
@@ -75,13 +106,13 @@ namespace Same_Energy_AdminWPF
             if (updateprod.Visibility == Visibility.Visible)
             {
                 newnameprod.Visibility = Visibility.Hidden;
-                newnameprod.Content = "Name:";
+                //newnameprod.Content = "Name:";
                 newprodstock.Visibility = Visibility.Hidden;
-                newprodstock.Content = "Stock:";
+                //newprodstock.Content = "Stock:";
                 newprodprice.Visibility = Visibility.Hidden;
-                newprodprice.Content = "Price:";
+                //newprodprice.Content = "Price:";
                 newprodsize.Visibility = Visibility.Hidden;
-                newprodsize.Content = "Size:";
+                //newprodsize.Content = "Size:";
                 newprodnametext.Visibility = Visibility.Hidden;
                 newprodstocktext.Visibility = Visibility.Hidden;
                 newprodpricetext.Visibility = Visibility.Hidden;
@@ -200,34 +231,34 @@ namespace Same_Energy_AdminWPF
                 newprodcategorytext.Visibility = Visibility.Hidden;
                 newprodimagetext.Visibility = Visibility.Hidden;
                 addprodbbtn.Visibility = Visibility.Hidden;
-                newnameprod.Content = "Price:";
+                //newnameprod.Content = "Price:";
                 newnameprod.Visibility = Visibility.Visible;
                 newprodnametext.Visibility = Visibility.Visible;
-                newprodprice.Content = "Size:";
+                //newprodprice.Content = "Size:";
                 newprodprice.Visibility = Visibility.Visible;
                 newprodpricetext.Visibility = Visibility.Visible;
-                newprodsize.Content = "Stock:";
+                //newprodsize.Content = "Stock:";
                 newprodsize.Visibility = Visibility.Visible;
                 newprodsizetext.Visibility = Visibility.Visible;
                 updateprod.Visibility = Visibility.Visible;
-                newprodstock.Content = "Category:";
+               // newprodstock.Content = "Category:";
                 newprodstock.Visibility = Visibility.Visible;
                 newprodstocktext.Visibility = Visibility.Visible;
 
             }
             else
             {
-                newnameprod.Content = "Price:";
+                //newnameprod.Content = "Price:";
                 newnameprod.Visibility = Visibility.Visible;
                 newprodnametext.Visibility = Visibility.Visible;
-                newprodprice.Content = "Size:";
+                //newprodprice.Content = "Size:";
                 newprodprice.Visibility = Visibility.Visible;
                 newprodpricetext.Visibility = Visibility.Visible;
-                newprodsize.Content = "Stock:";
+                //newprodsize.Content = "Stock:";
                 newprodsize.Visibility = Visibility.Visible;
                 newprodsizetext.Visibility = Visibility.Visible;
                 updateprod.Visibility = Visibility.Visible;
-                newprodstock.Content = "Category:";
+                //newprodstock.Content = "Category:";
                 newprodstock.Visibility = Visibility.Visible;
                 newprodstocktext.Visibility = Visibility.Visible;
             }
@@ -269,13 +300,13 @@ namespace Same_Energy_AdminWPF
                 Conn.Connection.Close();
                 MessageBox.Show("A termék sikeresen frissítve!");
                 newnameprod.Visibility = Visibility.Hidden;
-                newnameprod.Content = "Name:";
+                //newnameprod.Content = "Name:";
                 newprodprice.Visibility = Visibility.Hidden;
-                newprodprice.Content = "Price:";
+                //newprodprice.Content = "Price:";
                 newprodsize.Visibility = Visibility.Hidden;
-                newprodsize.Content = "Size:";
+                //newprodsize.Content = "Size:";
                 newprodstock.Visibility = Visibility.Hidden;
-                newprodstock.Content = "Stock:";
+                //newprodstock.Content = "Stock:";
                 newprodnametext.Visibility = Visibility.Hidden;
                 newprodpricetext.Visibility = Visibility.Hidden;
                 newprodsizetext.Visibility = Visibility.Hidden;
